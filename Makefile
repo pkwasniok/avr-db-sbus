@@ -23,6 +23,9 @@ build: firmware.bin
 upload: build
 	avrdude -c $(PROGRAMMER) -p $(MCU) -U flash:w:$(OUTDIR)/firmware.bin:r
 
+monitor:
+	sudo minicom -D /dev/ttyACM1 -b 115200 --ansi
+
 clean:
 	rm -r $(OUTDIR)/*
 
@@ -31,7 +34,7 @@ clean:
 firmware.bin: firmware.elf
 	$(OBJCOPY) -O binary $(OUTDIR)/firmware.elf $(OUTDIR)/firmware.bin
 
-firmware.elf: src/main.o
+firmware.elf: src/main.o src/usart.o src/sbus.o
 	$(GCC) $(CFLAGS) $(addprefix $(OUTDIR)/, $(^)) -o $(OUTDIR)/$(@)
 
 %.o: %.c

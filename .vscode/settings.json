@@ -6,5 +6,8 @@
     "C_Cpp.default.includePath": [
         "/usr/avr/**",
         "${workspaceFolder}/**"
-    ]
+    ],
+    "files.associations": {
+        "usart.h": "c"
+    }
 }

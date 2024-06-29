@@ -26,8 +26,12 @@ upload: build
 monitor:
 	sudo minicom -D /dev/ttyACM1 -b 115200 --ansi
 
+docs:
+	doxygen
+
 clean:
 	rm -r $(OUTDIR)/*
+	rm -r ./.docs/*
 
 
 

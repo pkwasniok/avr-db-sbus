@@ -28,7 +28,7 @@ uint8_t SBUS_FRAME_BUFFER[25];
 
 
 
-void sbus_interrupt_handler()
+void sbus_usart_rxc_interrupt_handler()
 {
     // Read data from USART
     uint8_t data_h = USART.RXDATAH;
@@ -38,7 +38,7 @@ void sbus_interrupt_handler()
     SBUS_BUFFER[0] = SBUS_BUFFER[1];
     SBUS_BUFFER[1] = data_l;
 
-    // Reset SBUS counter when detected frame header
+    // Reset SBUS counter when frame header is detected
     if (SBUS_COUNTER == -1 && SBUS_BUFFER[0] == LIBCONFIG_SBUS_FRAME_FOOTER && SBUS_BUFFER[1] == LIBCONFIG_SBUS_FRAME_HEADER)
     {
         SBUS_COUNTER = 0;

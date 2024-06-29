@@ -24,7 +24,7 @@ FILE usart_stream = FDEV_SETUP_STREAM(usart0_putchar, NULL, _FDEV_SETUP_WRITE);
 
 ISR(USART2_RXC_vect)
 {
-    sbus_interrupt_handler();
+    sbus_usart_rxc_interrupt_handler();
 }
 
 

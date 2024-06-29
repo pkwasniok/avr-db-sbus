@@ -1,3 +1,9 @@
+/*!
+ * @file sbus.h
+ *
+ * @brief Library for handling SBUS protocool on AVR DB family MCUs.
+*/
+
 #ifndef SBUS_H_
 #define SBUS_H_
 
@@ -73,8 +79,10 @@
 
 /*!
  * @brief Handles SBUS interrupt
+ * 
+ * @note This function should be placed in USARTx_RXC interrupt vector.
 */
-void sbus_interrupt_handler();
+void sbus_usart_rxc_interrupt_handler();
 
 
 
@@ -86,6 +94,12 @@ void sbus_interrupt_handler();
 
 /*!
  * @brief Initializes SBUS.
+ *
+ * This function initializes SBUS communication on specified USART by doing following:
+ * 1. Set USART baud rate to 100000 bps
+ * 2. Set USART frame format to 8 data, even parity, 2 stop.
+ * 3. Enable USART RXC interrupt
+ * 4. Enable USART RX
 */
 void sbus_init();
 
@@ -98,7 +112,13 @@ void sbus_init();
 
 
 /*!
- * @brief Reads specified SBUS channel value.
+ * @brief Reads value of specified SBUS channel.
+ *
+ * This function reads value of specified SBUS channel. SBUS channel value is in range 172-1811.
+ *
+ * @param[in] channel SBUS channel to read value from.
+ * 
+ * @returns Value of specified SBUS channel.
 */
 uint16_t sbus_channel_read(uint8_t channel);
 
